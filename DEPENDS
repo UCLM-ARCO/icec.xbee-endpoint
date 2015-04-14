@@ -1,0 +1,4 @@
+deb: easyxbee
+deb: ice-xbee
+
+pip: xbee

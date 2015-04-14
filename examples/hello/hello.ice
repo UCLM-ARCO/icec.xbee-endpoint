@@ -1,7 +1,7 @@
 // -*- mode: c++; coding: utf-8 -*-
 
 module Example {
-    interface Config {
-	void set(int code);
+    interface Hello {
+	void sayHello(string name);
     };
 };
