@@ -1,0 +1,13 @@
+Source: icec-xbee
+Section: utils
+Priority: extra
+Maintainer: Oscar Aceña Herrera <oscaracena@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.9.6
+
+Package: icec-xbee
+Architecture: all
+Depends: ${misc:Depends}, icec
+Description: XBee endpoint for IceC on Arduino
+ This package includes the source files needed for using the XBee
+ endpoint (API mode) on IceC for Arduino.

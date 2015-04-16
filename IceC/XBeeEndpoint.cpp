@@ -1,7 +1,7 @@
 /* -*- mode: c++; coding: utf-8 -*- */
 
 #include <IceC/IceUtil.h>
-#include <IceC/XBeeEndpoint.h>
+#include <XBeeEndpoint.h>
 #include <SoftwareSerial.h>
 
 static IcePlugin_PluginListItem item;

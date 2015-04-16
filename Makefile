@@ -2,15 +2,14 @@
 
 all:
 
+install: LIBDIR = $(DESTDIR)/usr/share/arduino/libraries/XBeeEndpoint
 install:
-	install -d $(DESTDIR)/usr/src/IceC
-	install -m 644 IceC/*.c $(DESTDIR)/usr/src/IceC
-
-	install -d $(DESTDIR)/usr/include/IceC
-	install -m 644 IceC/*.h $(DESTDIR)/usr/include/IceC
+	install -d $(LIBDIR)
+	install -m 644 IceC/*.cpp $(LIBDIR)
+	install -m 644 IceC/*.h $(LIBDIR)
 
 .PHONY: clean
 clean:
-	make -C example $@
+	make -C examples $@
 	find -name "*.o" -delete
 	find -name "*~" -delete
