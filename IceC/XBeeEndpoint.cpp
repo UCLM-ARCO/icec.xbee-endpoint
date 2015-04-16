@@ -9,17 +9,6 @@ static IcePlugin_EndpointObject endpoint;
 static XBee_EndpointOptions ep_options;
 
 static EasyXBee xbee;
-static SoftwareSerial logger(2, 3); // Rx, Tx
-
-void
-logger_log(const char* s) {
-    static bool logger_initialized = false;
-    if (not logger_initialized)
-	logger.begin(9600);
-
-    logger.write(s);
-    logger.flush();
-}
 
 bool
 IceC_XBee_getProtocolType(const char* proto, Ice_EndpointType* result) {
@@ -36,43 +25,17 @@ bool
 IceC_XBee_InputStream_init(Ice_InputStreamPtr self,
 			   int fd,
 			   Ice_EndpointType type) {
-    logger_log(__func__);
-    logger_log("\n");
-    _STOP_HERE_;
-
-/*     uint32_t size = 0; */
-
-/*     trace(); */
-
-/*     if (type != Ice_EndpointTypeXBee) */
-/* 	return false; */
-
-/*     /\* first: read header, and get message size *\/ */
-/*     self->size = XBee_read((byte*)self->data, 14); */
-/*     size = (uint32_t)*(self->data + 10); */
-
-/*     /\* then: read as size specifies *\/ */
-/*     size -= 14; */
-/*     assert(size <= MAX_MESSAGE_SIZE && "Message too big!"); */
-
-/*     self->size += XBee_read((byte*)(self->data + 14), size); */
-/*     return true; */
+    fixme("Not implemented");
+    _STOP_HERE_
+    return false;
 }
 
 bool
 IceC_XBee_ObjectAdapter_activate(Ice_ObjectAdapterPtr self) {
 
-    logger_log(__func__);
-    logger_log("\n");
-    _STOP_HERE_;
-
-/*     trace(); */
-
-/*     if (self->epinfo.type != Ice_EndpointTypeXBee) */
-/* 	return false; */
-
-/*     self->connection.fd = XBee_init(); */
-/*     return true; */
+    fixme("Not implemented");
+    _STOP_HERE_
+    return false;
 }
 
 bool
@@ -152,25 +115,21 @@ IceC_XBee_Connection_send(Ice_ConnectionPtr self,
     if (self->epinfo->type != Ice_EndpointTypeXBee)
 	return false;
 
-    // xbee.send(
-/*     *size = XBee_write(data, *size); */
-/*     return true; */
+    XBee_EndpointOptionsPtr opts;
+    opts = (XBee_EndpointOptionsPtr)self->epinfo->options;
+
+    assert(*size <= 255 && "MTU excedded");
+
+    xbee.send(opts->node_addr64, 0, data, (uint8_t)*size);
+    return true;
 }
 
 bool
 IceC_XBee_Connection_dataReady(Ice_ConnectionPtr self,
 			       bool* ready) {
 
-    logger_log(__func__);
-    logger_log("\n");
-    _STOP_HERE_;
-
-/*     trace(); */
-/*     if (self->type != Ice_EndpointTypeXBee) */
-/* 	return false; */
-
-/*     *ready = XBee_available(); */
-/*     return true; */
+    fixme("Not implemented");
+    return false;
 }
 
 void
@@ -183,7 +142,6 @@ IceC_XBeeEndpoint_init(Ice_CommunicatorPtr ic) {
     Ptr_check(ic);
 
     xbee.begin(XBEE_SPEED);
-    logger_log("xbee begin done\n");
 
     ep_options.used = false;
     Object_init((ObjectPtr)&ep_options);
