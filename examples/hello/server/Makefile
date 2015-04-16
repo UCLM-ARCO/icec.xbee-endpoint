@@ -7,6 +7,7 @@ LDLIBS     = /usr/lib/IcePy.so.35 -lpython2.7
 TARGET     = server
 SLICE      = hello.ice
 
+vpath %.ice ..
 
 all: $(TARGET)
 

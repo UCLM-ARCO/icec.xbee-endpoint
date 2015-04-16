@@ -19,7 +19,7 @@ void setup() {
 
     // create a proxy to remote object
     Ice_Communicator_stringToProxy
-	(&ic, "server -d:xbee -p mypan -n node1", &remote);
+	(&ic, "server -d:xbee -p pan -n node", &remote);
 
     logger_log("setup done\n");
 }

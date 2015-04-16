@@ -1,4 +1,4 @@
-/* -*- mode: c; coding: utf-8 -*- */
+/* -*- mode: c++; coding: utf-8 -*- */
 
 #include <IceC/IceUtil.h>
 #include <IceC/XBeeEndpoint.h>
@@ -106,8 +106,6 @@ IceC_XBee_EndpointInfo_init(Ice_EndpointInfoPtr self,
 bool
 IceC_XBee_ObjectPrx_connect(Ice_ObjectPrxPtr self) {
     trace();
-    logger_log(__func__);
-    logger_log("\n");
 
     if (self->epinfo.type != Ice_EndpointTypeXBee)
 	return false;
@@ -115,28 +113,14 @@ IceC_XBee_ObjectPrx_connect(Ice_ObjectPrxPtr self) {
     XBee_EndpointOptionsPtr opts;
     opts = (XBee_EndpointOptionsPtr)self->epinfo.options;
 
-    // join a pan
-    logger_log(" - try to set pan id\n");
     bool result = xbee.set_pan_id((byte*)opts->panid, strlen(opts->panid));
-    // assert(result && "set panid failed");
-    if (not result) {
-	logger_log(" - error setting panid\n");
-	_STOP_HERE_;
-    }
-
-    // wait until successfully connected to pan
+    assert(result && "set panid failed");
     xbee.wait_until_ready();
 
-    // resolve the name of destination node
     result = xbee.lookup((byte*)opts->nodeid, strlen(opts->nodeid),
 			 &opts->node_addr64, &opts->node_addr16);
-    // assert(result && "lookup node failed");
-    if (not result) {
-	logger_log(" - error looking node\n");
-	_STOP_HERE_;
-    }
-
-    logger_log(" - connect done\n");
+    assert(result && "lookup node failed");
+    self->connection.fd = 0;
     return true;
 }
 
@@ -149,7 +133,7 @@ IceC_XBee_ObjectPrx_init(Ice_ObjectPrxPtr self,
     if (type != Ice_EndpointTypeXBee)
 	return false;
 
-    Ice_Connection_init(&(self->connection), type);
+    Ice_Connection_init(&(self->connection), &(self->epinfo));
     Ice_OutputStream_init(&(self->stream));
 
     IceC_XBee_EndpointInfo_init(&(self->epinfo), type, strprx);
@@ -164,14 +148,11 @@ IceC_XBee_Connection_send(Ice_ConnectionPtr self,
 			  byte* data,
 			  uint16_t* size) {
 
-    logger_log(__func__);
-    logger_log("\n");
-    _STOP_HERE_;
+    trace();
+    if (self->epinfo->type != Ice_EndpointTypeXBee)
+	return false;
 
-/*     trace(); */
-/*     if (self->type != Ice_EndpointTypeXBee) */
-/* 	return false; */
-
+    // xbee.send(
 /*     *size = XBee_write(data, *size); */
 /*     return true; */
 }
