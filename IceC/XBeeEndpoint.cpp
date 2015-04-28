@@ -29,16 +29,25 @@ IceC_XBee_InputStream_init(Ice_InputStreamPtr self,
 			   int fd,
 			   Ice_EndpointType type) {
 
-    fixme("Not implemented");
-    _STOP_HERE_
-    return false;
+    trace();
+    if (type != Ice_EndpointTypeXBee)
+	return false;
+
+    byte* data;
+    byte size;
+    if (!xbee.receive(&data, &size))
+	return false;
+
+    assert (size <= MAX_MESSAGE_SIZE && "Too big message");
+    memcpy(self->data, data, size);
+    self->size = size;
+    return true;
 }
 
 bool
 IceC_XBee_ObjectAdapter_activate(Ice_ObjectAdapterPtr self) {
 
     trace();
-
     if (self->epinfo.type != Ice_EndpointTypeXBee)
 	return false;
 
@@ -170,9 +179,12 @@ bool
 IceC_XBee_Connection_dataReady(Ice_ConnectionPtr self,
 			       bool* ready) {
 
-    fixme("Not implemented");
-    _STOP_HERE_;
-    return false;
+    trace();
+    if (self->epinfo->type != Ice_EndpointTypeXBee)
+	return false;
+
+    *ready = xbee.available();
+    return true;
 }
 
 void
