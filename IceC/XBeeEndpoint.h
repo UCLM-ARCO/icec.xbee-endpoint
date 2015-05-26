@@ -37,13 +37,19 @@ bool IceC_Xbee_EndpointInfo_init(Ice_EndpointInfoPtr self,
 				 Ice_EndpointType type,
 				 const char* endpoint);
 
+bool IceC_XBee_EndpointInfo_writeToOutputStream(Ice_EndpointInfoPtr self,
+						Ice_OutputStreamPtr os);
+
 bool IceC_Xbee_ObjectPrx_connect(Ice_ObjectPrxPtr self);
 bool IceC_Xbee_ObjectPrx_init(Ice_ObjectPrxPtr self,
 			      Ice_EndpointType type,
 			      const char* strprx);
 
 bool IceC_Xbee_Connection_send(Ice_ConnectionPtr self, int fd, byte* data,
-				 uint16_t* size);
+			       uint16_t* size);
+
+bool IceC_XBee_Connection_dataReady(Ice_ConnectionPtr self,
+				    bool* ready);
 
 /* plugin specific functions */
 void IceC_XBeeEndpoint_init(Ice_CommunicatorPtr ic);
