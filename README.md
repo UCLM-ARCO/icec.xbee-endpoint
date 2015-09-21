@@ -2,8 +2,8 @@ Description
 ===========
 
 This is an endpoint for IceC using a XBee transceiver (using the API
-mode, not the AT mode). An stringfied proxy should look like the
-following:
+mode Level 2, not the AT mode). An stringfied proxy should look like
+the following:
 
     Light -e 1.0 -d:xbee -p panid -n nodeid
 

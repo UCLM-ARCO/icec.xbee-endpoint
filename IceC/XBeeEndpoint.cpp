@@ -38,7 +38,7 @@ IceC_XBee_InputStream_init(Ice_InputStreamPtr self,
     if (!xbee.receive(&data, &size))
 	return false;
 
-    assert (size <= MAX_MESSAGE_SIZE && "Too big message");
+    assert(size <= MAX_MESSAGE_SIZE && "Too big message");
     memcpy(self->data, data, size);
     self->size = size;
     return true;
@@ -74,8 +74,7 @@ IceC_XBee_EndpointInfo_init(Ice_EndpointInfoPtr self,
     if (type != Ice_EndpointTypeXBee)
     	return false;
 
-
-    XBee_EndpointOptions* options = NULL;
+    XBee_EndpointOptionsPtr options = NULL;
     byte i;
     for (i=0; i<MAX_XBEE_ENDPOINT_INSTANCES; i++) {
     	if (ep_options[i].used)
@@ -144,6 +143,7 @@ IceC_XBee_ObjectPrx_init(Ice_ObjectPrxPtr self,
 			 const char* strprx) {
 
     trace();
+
     if (type != Ice_EndpointTypeXBee)
 	return false;
 
