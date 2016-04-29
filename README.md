@@ -7,16 +7,13 @@ the following:
 
     Light -e 1.0 -d:xbee -p panid -n nodeid
 
-Manual installation
+Debian installation
 ===================
 
-To manually install this endpoint, create a directory on your Arduino
-*libraries* path, and make a link there to ``IceC/*.{c,cpp}`` and to
-``IceC`` directory. Just as follows:
+You may install using the following command:
 
-    $ mkdir ~/Arduino/libraries/XBeeEndpoint
-    $ cd ~/Arduino/libraries/XBeeEndpoint
-    $ ln -s /path/to/this/repo/IceC/*.c .
-    $ ln -s /path/to/this/repo/IceC/*.h .
-    $ ln -s /path/to/this/repo/IceC/*.cpp .
-    $ ln -s /path/to/this/repo/IceC .
+    $ sudo apt-get install icec-xbee
+
+Then, you need to add a link on your Arduino libraries path:
+
+    $ ln -s /usr/share/arduino/libraries/XBeeEndpoint/ $HOME/Arduino/libraries
