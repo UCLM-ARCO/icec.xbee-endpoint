@@ -12,7 +12,9 @@ extern "C" {
 
 #define Ice_EndpointTypeXBee 13
 
-#define XBEE_SPEED           9600
+/* XBEE_SPEED must match settings of XBee device */
+#define XBEE_SPEED           57600
+
 #define MAX_PANID_SIZE       8
 #define MAX_NODEID_SIZE      10
 

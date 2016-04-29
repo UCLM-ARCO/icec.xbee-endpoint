@@ -63,6 +63,7 @@ IceC_XBee_ObjectAdapter_activate(Ice_ObjectAdapterPtr self) {
     assert(result && "set panid failed");
     xbee.wait_until_ready();
 
+    self->connection.fd = 0;
     return true;
 }
 
