@@ -158,10 +158,7 @@ IceC_XBee_ObjectPrx_init(Ice_ObjectPrxPtr self,
 }
 
 bool
-IceC_XBee_Connection_send(Ice_ConnectionPtr self,
-			  int fd,
-			  byte* data,
-			  uint16_t* size) {
+IceC_XBee_Connection_send(Ice_ConnectionPtr self, int fd, byte* data, uint16_t* size) {
 
     trace();
     if (self->epinfo->type != Ice_EndpointTypeXBee)
